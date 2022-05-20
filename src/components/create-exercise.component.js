@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import axios from 'axios';
 
 export default class CreateExercise extends Component
 {
@@ -26,10 +27,16 @@ export default class CreateExercise extends Component
 
     //this will run right before anything from this file loads 
     componentDidMount(){
-        this.setState({
-            users: ['Shannu'],
-            username:"shannu"
-        })
+      axios.get('http://localhost:5000/users')
+      .then(response => {
+        if(response.data.length>0)
+        {
+          this.setState({
+            users: response.data.map(user => user.username),
+            username: response.data[0].username
+          })
+        }
+      })
     }
 
     onChangeUsername(e){
@@ -59,22 +66,21 @@ export default class CreateExercise extends Component
     onSubmit(e){
         e.preventDefault();
 
-        const exercise = {
-            username: this.state.username,
-            description: this.state.description,
-            duration: this.state.duration,
-            date: this.state.date
-          }
-      
-          console.log(exercise);
-      
-          /*axios.post('http://localhost:5000/exercises/add', exercise)
-            .then(res => console.log(res.data));*/
-      
-        e.preventDefault();
+            const exercise = {
+              username: this.state.username,
+              description: this.state.description,
+              duration: this.state.duration,
+              date: this.state.date
+            }
 
-        window.location = '/';
-    }
+            console.log(exercise);
+
+            axios.post('http://localhost:5000/exercises/add', exercise)
+              .then(res =>  console.log(res.data))
+              .catch( err =>  console.log(err))
+
+            setTimeout(() => {window.location = '/'},300);
+    }  
     
     render()
     {

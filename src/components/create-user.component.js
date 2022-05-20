@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import axios from 'axios';
 
 export default class CreateUsers extends Component
 {
@@ -30,12 +31,14 @@ export default class CreateUsers extends Component
 
         console.log(user);
 
-        /*axios.post('http://localhost:5000/users/add', user)
-        .then(res => console.log(res.data));*/
+        //sending post request to mongodb
+        axios.post('http://localhost:5000/users/add', user)
+        .then(res => console.log(res.data));
+
 
         this.setState({
         username: ''
-        })
+        }) 
     }
     
     render()
@@ -43,6 +46,7 @@ export default class CreateUsers extends Component
         return(
             <div>
                 <h3>Create New User</h3>
+
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group"> 
                         <label>Username: </label>
