@@ -1,10 +1,11 @@
 import React,{Component} from 'react';
 import {Navbar,Nav,Container} from 'react-bootstrap'; 
-import {BrowserRouter,Routes,Link,Route} from "react-router-dom";
+import {BrowserRouter,Link,Route,Routes} from "react-router-dom";
+
+import ExerciseList from './exercises-list.component';
 import CreateExercise from './create-exercise.component';
 import CreateUsers from './create-user.component';
-import EditExercises from './edit-exercise.component';
-import ExerciseList from './exercises-list.component';
+import EditExercise from './edit-exercise.component';
 
 export default class NavbarComp extends Component{
     render() {
@@ -27,9 +28,9 @@ export default class NavbarComp extends Component{
                         <Route path="/" element={<ExerciseList />}/>
                         <Route path="/create" element={<CreateExercise/>}/>
                         <Route path="/user" element={<CreateUsers/>}/>
-                        <Route path="/edit:id" element={<EditExercises/>}/>
-                    </Routes>         
-
+                        <Route path="/edit/:id" element={<EditExercise/>}/>            
+                    </Routes>  
+                           
                 </div>
             </BrowserRouter>
         )
